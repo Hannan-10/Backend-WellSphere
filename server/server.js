@@ -3,14 +3,14 @@ const { createApp } = require('./src/app')
 const { connectToDatabase } = require('./src/config/db')
 
 async function start() {
-  await connectToDatabase(process.env.MONGO_URI)
-
   const app = createApp()
   const port = process.env.PORT || 5000
 
-  app.listen(port, () => {
+  app.listen(port, '0.0.0.0', () => {
     console.log(`Server running on port ${port}`)
   })
+
+  await connectToDatabase(process.env.MONGO_URI)
 }
 
 start().catch(err => {
